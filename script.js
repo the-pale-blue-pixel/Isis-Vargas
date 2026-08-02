@@ -5,7 +5,8 @@ const paginas=[...document.querySelectorAll(".page")];
 function mostrarPagina(){const id=location.hash.slice(1)||"inicio";let destino=document.getElementById(id);if(!destino)destino=document.getElementById("inicio");paginas.forEach(p=>p.classList.toggle("activa",p===destino));document.querySelectorAll("[data-nav]").forEach(a=>a.classList.toggle("activo",a.dataset.nav===destino.id));window.scrollTo({top:0,left:0,behavior:"instant"})}
 addEventListener("hashchange",mostrarPagina);addEventListener("DOMContentLoaded",mostrarPagina);
 const langBtn=document.getElementById("lang-toggle");let idioma="es";langBtn.addEventListener("click",()=>{idioma=idioma==="es"?"en":"es";langBtn.textContent=idioma==="es"?"EN":"ES";document.documentElement.dataset.lang=idioma;document.querySelectorAll("[data-es][data-en]").forEach(el=>el.textContent=el.dataset[idioma])});
-document.getElementById("form-contacto").addEventListener("submit",e=>{e.preventDefault();const nombre=document.getElementById("nombre").value,correo=document.getElementById("correo-remitente").value,mensaje=document.getElementById("mensaje").value;location.href=`mailto:1sis.v4rgas@gmail.com?subject=${encodeURIComponent("Contacto desde el sitio — "+nombre)}&body=${encodeURIComponent(mensaje+"\n\n— "+nombre+" ("+correo+")")}`});
+const FORMSPREE_ENDPOINT="https://formspree.io/f/mwvgdayg";
+document.getElementById("form-contacto").addEventListener("submit",async e=>{e.preventDefault();const form=e.currentTarget,estado=document.getElementById("form-estado"),boton=form.querySelector("button[type=submit]");if(!FORMSPREE_ENDPOINT){estado.textContent="Formulario pendiente de conexión.";return}boton.disabled=true;estado.textContent="Enviando…";try{const response=await fetch(FORMSPREE_ENDPOINT,{method:"POST",body:new FormData(form),headers:{Accept:"application/json"}});if(!response.ok)throw new Error();form.reset();estado.textContent="Mensaje enviado. Gracias."}catch{estado.textContent="No se pudo enviar. Inténtalo nuevamente."}finally{boton.disabled=false}});
 
 const GRAPH={
   "tiempo":["paisaje","años luz","memoria","escala"],
@@ -38,6 +39,7 @@ function iniciarGrafo(){
   Object.entries(GRAPH).forEach(([source,targets])=>targets.forEach(target=>{const key=[source,target].sort().join("|");if(edgeKeys.has(key))return;edgeKeys.add(key);links.push({source,target});degree[source]++;degree[target]++}));
   const nodes=names.map(id=>({id,label:id,link_count:degree[id],color:"#ff2f92"}));
   let width=wrap.clientWidth,height=wrap.clientHeight,selectedNode=null;
+  const mobile=matchMedia("(max-width: 620px)").matches;
   const svg=d3.select(host).append("svg").attr("width",width).attr("height",height).attr("viewBox",`0 0 ${width} ${height}`);
   const main=svg.append("g");
   svg.call(d3.zoom().scaleExtent([.1,4]).on("zoom",()=>main.attr("transform",d3.event.transform)));
@@ -48,12 +50,14 @@ function iniciarGrafo(){
   groups.append("path").attr("class","node-symbol").attr("d",d3.symbol().type(d3.symbolCircle).size(d=>(50+Math.pow(5+Math.sqrt(d.link_count),2))*.4)).attr("fill",d=>d.color);
   groups.append("text").attr("class","node-text").attr("x",d=>(5+Math.sqrt(d.link_count))*.7+5).attr("y",".31em").text(d=>d.label);
   const simulation=d3.forceSimulation(nodes)
-    .force("link",d3.forceLink(links).id(d=>d.id).distance(d=>Math.min(180,Math.max(60,(d.source.link_count+d.target.link_count)*10))))
-    .force("charge",d3.forceManyBody().strength(-350))
+    .force("link",d3.forceLink(links).id(d=>d.id).distance(d=>mobile?Math.min(105,Math.max(48,(d.source.link_count+d.target.link_count)*6)):Math.min(180,Math.max(60,(d.source.link_count+d.target.link_count)*10))))
+    .force("charge",d3.forceManyBody().strength(mobile?-120:-260))
     .force("center",d3.forceCenter(width/2,height/2))
+    .force("x",d3.forceX(width/2).strength(mobile?.055:.028))
+    .force("y",d3.forceY(height/2).strength(mobile?.055:.028))
     .force("collision",d3.forceCollide().radius(d=>(5+Math.sqrt(d.link_count))*.7+d.label.length*3+8).strength(.85))
-    .alphaDecay(.012).alphaMin(.002)
-    .on("tick",()=>{nodes.forEach(d=>{const left=22,right=Math.max(left,width-(d.label.length*6.7+30)),top=22,bottom=Math.max(top,height-22);d.x=Math.max(left,Math.min(right,d.x));d.y=Math.max(top,Math.min(bottom,d.y))});link.attr("x1",d=>d.source.x).attr("y1",d=>d.source.y).attr("x2",d=>d.target.x).attr("y2",d=>d.target.y);groups.attr("transform",d=>`translate(${d.x},${d.y}) scale(${selectedNode&&isConnected(selectedNode,d)?1.15:1})`)});
+    .alphaDecay(mobile?.025:.014).alphaMin(.002)
+    .on("tick",()=>{nodes.forEach(d=>{const fontWidth=mobile?5.6:6.7,left=30,right=Math.max(left,width-(d.label.length*fontWidth+42)),top=34,bottom=Math.max(top,height-34);d.x=Math.max(left,Math.min(right,d.x));d.y=Math.max(top,Math.min(bottom,d.y))});link.attr("x1",d=>d.source.x).attr("y1",d=>d.source.y).attr("x2",d=>d.target.x).attr("y2",d=>d.target.y);groups.attr("transform",d=>`translate(${d.x},${d.y}) scale(${selectedNode&&isConnected(selectedNode,d)?1.15:1})`)});
   groups.call(d3.drag().on("start",d=>{if(!d3.event.active)simulation.alphaTarget(.25).restart();d.fx=d.x;d.fy=d.y}).on("drag",d=>{d.fx=d3.event.x;d.fy=d3.event.y}).on("end",d=>{if(!d3.event.active)simulation.alphaTarget(.035);d.fx=null;d.fy=null}));
   groups.on("click",d=>{
     d3.event.stopPropagation();selectedNode=selectedNode&&selectedNode.id===d.id?null:d;
@@ -63,8 +67,8 @@ function iniciarGrafo(){
     link.style("stroke",l=>selectedNode&&(l.source.id===selectedNode.id||l.target.id===selectedNode.id)?"#ff2f92":"#9ca3af").style("stroke-opacity",l=>!selectedNode?.5:(l.source.id===selectedNode.id||l.target.id===selectedNode.id?1:.08)).style("stroke-width",l=>selectedNode&&(l.source.id===selectedNode.id||l.target.id===selectedNode.id)?2.4:1);
   });
   svg.on("click",()=>{if(!selectedNode)return;selectedNode=null;groups.style("opacity",1);groups.selectAll("text").attr("fill","#4b5563");link.style("stroke","#9ca3af").style("stroke-opacity",.5).style("stroke-width",1)});
-  const floatTimer=d3.timer(()=>{if(simulation.alpha()<.04){nodes.forEach(n=>{if(n.fx==null){n.vx+=(Math.random()-.5)*.08;n.vy+=(Math.random()-.5)*.08}});simulation.alpha(.035).restart()}});
-  new ResizeObserver(()=>{const nextW=wrap.clientWidth,nextH=wrap.clientHeight;if(nextW<10||nextH<10)return;width=nextW;height=nextH;svg.attr("width",width).attr("height",height).attr("viewBox",`0 0 ${width} ${height}`);simulation.force("center",d3.forceCenter(width/2,height/2)).alpha(.25).restart()}).observe(wrap);
+  const floatTimer=d3.interval(()=>{if(simulation.alpha()<.018){const impulse=mobile?.006:.018;nodes.forEach(n=>{if(n.fx==null){n.vx+=(Math.random()-.5)*impulse;n.vy+=(Math.random()-.5)*impulse}});simulation.alpha(mobile?.006:.012).restart()}},mobile?2600:1800);
+  new ResizeObserver(()=>{const nextW=wrap.clientWidth,nextH=wrap.clientHeight;if(nextW<10||nextH<10)return;width=nextW;height=nextH;svg.attr("width",width).attr("height",height).attr("viewBox",`0 0 ${width} ${height}`);simulation.force("center",d3.forceCenter(width/2,height/2)).force("x",d3.forceX(width/2).strength(mobile?.055:.028)).force("y",d3.forceY(height/2).strength(mobile?.055:.028)).alpha(.18).restart()}).observe(wrap);
 }
 
 if(window.d3)iniciarGrafo();

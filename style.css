@@ -33,3 +33,15 @@
   .project-column img{height:clamp(260px,62vw,520px)}
   .archivo-popup{left:calc(var(--sidebar-w) + 3%);right:3%;grid-template-columns:1fr}.archivo-popup-left{border-right:0;border-bottom:1px solid #ff2f92}
 }
+
+@media(max-width:920px){
+  .project-column img{height:auto;max-height:none;object-fit:contain}
+}
+.form-estado{min-height:18px;margin:8px 0 0;font-size:12px;color:var(--magenta)}
+
+/* Ajustes finales del grafo */
+.grafo-wrap{background:#fff}
+@media(max-width:920px){
+  .node-text{font-size:9px}
+  .node-symbol{filter:drop-shadow(0 0 2px rgba(255,47,146,.75))}
+}
