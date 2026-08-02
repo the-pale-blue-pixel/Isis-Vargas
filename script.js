@@ -2,8 +2,28 @@ const PROYECTOS=[{id:"umbral-de-falla",nombre:"Umbral de Falla"},{id:"en-lista-d
 const lista=document.getElementById("lista-proyectos"),indice=document.getElementById("indice-proyectos");
 PROYECTOS.forEach(p=>{const href="#proyecto-"+p.id;[lista,indice].forEach((contenedor,i)=>{const li=document.createElement("li"),a=document.createElement("a");a.href=href;a.textContent=p.nombre;if(!i)a.dataset.nav="proyecto-"+p.id;li.appendChild(a);contenedor.appendChild(li)})});
 const paginas=[...document.querySelectorAll(".page")];
-function mostrarPagina(){const id=location.hash.slice(1)||"inicio";let destino=document.getElementById(id);if(!destino)destino=document.getElementById("inicio");paginas.forEach(p=>p.classList.toggle("activa",p===destino));document.querySelectorAll("[data-nav]").forEach(a=>a.classList.toggle("activo",a.dataset.nav===destino.id));window.scrollTo({top:0,left:0,behavior:"instant"})}
+function mostrarPagina(){const id=location.hash.slice(1)||"inicio";let destino=document.getElementById(id);if(!destino)destino=document.getElementById("inicio");paginas.forEach(p=>p.classList.toggle("activa",p===destino));document.querySelectorAll("[data-nav]").forEach(a=>a.classList.toggle("activo",a.dataset.nav===destino.id));window.scrollTo({top:0,left:0,behavior:"instant"});requestAnimationFrame(alinearImagenesDeProyecto)}
 addEventListener("hashchange",mostrarPagina);addEventListener("DOMContentLoaded",mostrarPagina);
+
+// Iguala cada pareja a la imagen visualmente más corta. De este modo,
+// la imagen más corta queda completa y solo se recorta la que sobresale.
+function alinearImagenesDeProyecto(){
+  document.querySelectorAll(".project-columns").forEach(grupo=>{
+    const imagenes=[...grupo.querySelectorAll(".project-column > img")];
+    imagenes.forEach(img=>img.style.height="");
+    if(matchMedia("(max-width: 920px)").matches||imagenes.length<2)return;
+    if(imagenes.some(img=>!img.complete||!img.naturalWidth))return;
+    const anchos=imagenes.map(img=>img.clientWidth);
+    if(anchos.some(ancho=>ancho<=0))return;
+    const alturas=imagenes.map((img,i)=>anchos[i]*(img.naturalHeight/img.naturalWidth));
+    const alturaObjetivo=Math.min(...alturas);
+    imagenes.forEach(img=>img.style.height=`${alturaObjetivo}px`);
+  });
+}
+document.querySelectorAll(".project-columns img").forEach(img=>img.addEventListener("load",alinearImagenesDeProyecto));
+addEventListener("DOMContentLoaded",alinearImagenesDeProyecto);
+let temporizadorImagenes;
+addEventListener("resize",()=>{clearTimeout(temporizadorImagenes);temporizadorImagenes=setTimeout(alinearImagenesDeProyecto,120)});
 const langBtn=document.getElementById("lang-toggle");let idioma="es";langBtn.addEventListener("click",()=>{idioma=idioma==="es"?"en":"es";langBtn.textContent=idioma==="es"?"EN":"ES";document.documentElement.dataset.lang=idioma;document.querySelectorAll("[data-es][data-en]").forEach(el=>el.textContent=el.dataset[idioma])});
 const FORMSPREE_ENDPOINT="https://formspree.io/f/mwvgdayg";
 document.getElementById("form-contacto").addEventListener("submit",async e=>{e.preventDefault();const form=e.currentTarget,estado=document.getElementById("form-estado"),boton=form.querySelector("button[type=submit]");if(!FORMSPREE_ENDPOINT){estado.textContent="Formulario pendiente de conexión.";return}boton.disabled=true;estado.textContent="Enviando…";try{const response=await fetch(FORMSPREE_ENDPOINT,{method:"POST",body:new FormData(form),headers:{Accept:"application/json"}});if(!response.ok)throw new Error();form.reset();estado.textContent="Mensaje enviado. Gracias."}catch{estado.textContent="No se pudo enviar. Inténtalo nuevamente."}finally{boton.disabled=false}});
