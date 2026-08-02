@@ -11,6 +11,7 @@
 .project-column{display:grid;grid-template-rows:subgrid;grid-row:span 2;gap:20px}
 .project-copy{display:flex;flex-direction:column;gap:18px}
 .project-column img{margin:0;align-self:start}
+.project-column img{width:100%;height:clamp(280px,32vw,460px);object-fit:cover;object-position:center}
 .node-text{pointer-events:all;cursor:pointer}
 .node-symbol{filter:drop-shadow(0 0 3px rgba(255,47,146,.9))}
 
@@ -29,5 +30,6 @@
 @media(max-width:920px){
   .project-columns{grid-template-rows:auto;gap:32px}
   .project-column{display:flex;grid-row:auto}
+  .project-column img{height:clamp(260px,62vw,520px)}
   .archivo-popup{left:calc(var(--sidebar-w) + 3%);right:3%;grid-template-columns:1fr}.archivo-popup-left{border-right:0;border-bottom:1px solid #ff2f92}
 }
