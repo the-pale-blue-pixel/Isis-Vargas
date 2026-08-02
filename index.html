@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es" data-lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Isis Vargas</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="sidebar-top"><a href="#inicio" class="sidebar-title" data-nav="inicio">Isis Vargas</a></div>
+    <nav class="proyectos-nav" aria-label="Proyectos">
+      <span class="proyectos-label" data-es="Proyectos" data-en="Projects">Proyectos</span>
+      <ul id="lista-proyectos"></ul>
+    </nav>
+  </aside>
+
+  <div class="col-derecha">
+    <header class="topbar">
+      <a href="#proyectos" class="topbar-item" data-nav="proyectos" data-es="Proyectos" data-en="Projects">Proyectos</a>
+      <a href="#publicaciones" class="topbar-item topbar-separado" data-nav="publicaciones" data-es="Publicaciones" data-en="Publications">Publicaciones</a>
+      <a href="#archivo" class="topbar-item topbar-separado" data-nav="archivo" data-es="Archivo" data-en="Archive:">Archivo</a>
+      <a href="#bio" class="topbar-item topbar-separado" data-nav="bio">Bio</a>
+      <a href="#contacto" class="topbar-item topbar-separado" data-nav="contacto" data-es="Contacto" data-en="Contact">Contacto</a>
+      <button id="lang-toggle" class="topbar-item lang-btn" type="button" aria-label="Cambiar idioma">EN</button>
+    </header>
+
+    <main class="contenido">
+      <section id="inicio" class="page page-inicio">
+        <div class="inicio-layout">
+          <div class="grafo-wrap">
+            <div id="grafo-conceptos" role="img" aria-label="Red interactiva de conceptos y proyectos"></div>
+            <p id="grafo-etiqueta" class="grafo-etiqueta" data-es="Selecciona o arrastra un nodo" data-en="Select or drag a node">Selecciona o arrastra un nodo</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="proyectos" class="page">
+        <h1 class="page-title" data-es="Proyectos" data-en="Projects">Proyectos</h1>
+        <ul class="indice-proyectos" id="indice-proyectos"></ul>
+      </section>
+
+      <section id="proyecto-umbral-de-falla" class="page page-proyecto">
+        <div class="project-meta"><span>Residencia, </span><a href="https://www.tsonami.cl/" target="_blank" rel="noopener">Tsonami Arte Sonoro</a><span> · </span><a href="https://proartesmexico.com.mx/" target="_blank" rel="noopener">Proartes Mx</a></div>
+        <h1 class="page-title">Umbral de Falla</h1>
+        <div class="umbral-layout">
+          <div class="proyecto-texto-simple">
+            <p>Esta investigación relaciona los movimientos telúricos y las formas en que estos procesos se manifiestan a escala humana. Situada en el contexto tectónico de Valparaíso, explora fenómenos que operan de manera continua bajo la superficie, aunque sus efectos suelen hacerse perceptibles únicamente cuando la tensión acumulada supera un punto crítico y produce una ruptura.</p>
+            <p>Umbral de falla nombra ese límite inestable entre la tensión contenida y su liberación, referenciando el doble sentido de la falla: como fractura geológica y como alteración de un sistema. La obra consiste en un dispositivo lítico sometido a tensión y vibración continua, activado en tiempo real por datos sísmicos abiertos de la red de monitoreo de Valparaíso.</p>
+          </div>
+          <img src="umbral.gif" alt="Umbral de Falla — registro" class="umbral-gif" loading="lazy">
+        </div>
+      </section>
+
+      <section id="proyecto-en-lista-de-espera" class="page page-proyecto">
+        <h1 class="page-title">En Lista de espera</h1>
+        <p class="epigrafe">Un movimiento de placas tectónicas puede tardar siglos en producir una grieta visible en la superficie. Sin embargo, su desplazamiento ya está en curso.</p>
+        <div class="project-columns">
+          <div class="project-column"><div class="project-copy"><p>Aunque los procesos geológicos han dado forma a civilizaciones, mitologías y paisajes culturales, no forman parte de nuestra experiencia cotidiana. Persisten como fondo estable que se vuelve evidente cuando se manifiesta como ruptura: un temblor, una erupción, una grieta. El proyecto busca registrar el instante en que esa temporalidad no-humana se vuelve sensible.</p></div><img src="lista1.jpg" alt="En Lista de espera — registro 1" loading="lazy"></div>
+          <div class="project-column"><div class="project-copy"><p>En Lista de espera es una instalación en tiempo real que vincula eventos sísmicos con producción textil automatizada. Una máquina de tejer permanece conectada a un sistema virtual que monitorea la actividad sísmica global. Cuando ocurre un sismo mayor a 4.5 grados, la máquina se activa y teje un segmento de hilo para luego detenerse.</p></div><img src="lista2.jpg" alt="En Lista de espera — registro 2" loading="lazy"></div>
+        </div>
+      </section>
+
+      <section id="proyecto-anos-luz" class="page page-proyecto">
+        <h1 class="page-title">Años Luz</h1>
+        <div class="project-columns">
+          <div class="project-column"><div class="project-copy"><p>Una porción del ruido blanco que escuchamos al sintonizar una radio proviene de la radiación de fondo de microondas, una huella electromagnética remanente del Big Bang. Esta idea sirvió como punto de partida para una colaboración con mi padre en la intervención de una prenda de su colección New Wave.</p><p>El saco, confeccionado por mi abuela, se transformó en una antena textil mediante bordado en punto de cruz con hilo conductivo de acero.</p></div><img src="anos1.jpg" alt="Años Luz — registro 1" loading="lazy"></div>
+          <div class="project-column"><div class="project-copy"><p>La antena se conecta a un potenciómetro que regula la relación entre dos pines del sensor CMOS de una cámara digital, inyectando ruido eléctrico que genera alteraciones cromáticas sobre el glitch original.</p><p>El resultado cruza lo cósmico y lo cotidiano, el lenguaje del bordado y el electromagnético: años luz de distancia codificados como interferencia visual.</p></div><img src="anos2.jpg" alt="Años Luz — registro 2" loading="lazy"></div>
+        </div>
+      </section>
+
+      <section id="proyecto-hacer-tierra" class="page page-proyecto"><h1 class="page-title">Hacer Tierra</h1><div class="proximamente" data-es="Próximamente." data-en="Coming soon.">Próximamente.</div></section>
+
+      <section id="proyecto-tepetl-txt" class="page page-proyecto">
+        <div class="project-meta"><span>Residencia, </span><a href="https://en.casasnowapple.mx/" target="_blank" rel="noopener">Snowapple</a></div>
+        <h1 class="page-title">tepetl.txt</h1>
+        <div class="project-columns">
+          <div class="project-column"><div class="project-copy"><p>tepetl.txt es un archivo textil que traduce el monitoreo de señales verticales del volcán Popocatépetl en patrones visuales. Mediante bloques Unicode, los datos se transforman en una estructura gráfica materializada en trama y urdimbre. La sismografía, la codificación digital y la práctica textil convergen en un registro visual del movimiento volcánico.</p></div><img src="txt1.png" alt="tepetl.txt — registro 1" loading="lazy"></div>
+          <div class="project-column"><div class="project-copy"><p>Un volcán no es una estructura fija, sino un proceso: una apertura de la tierra donde fluye el tiempo geológico. Su forma es un espejismo de estabilidad, una montaña que puede convertirse en fuego y ceniza. En la frontera entre creación y destrucción, el paisaje volcánico confronta la fragilidad de nuestra existencia.</p></div><img src="txt2.png" alt="tepetl.txt — registro 2" loading="lazy"></div>
+        </div>
+      </section>
+
+      <section id="proyecto-hello-voyager" class="page page-proyecto"><h1 class="page-title">Hello Voyager</h1><div class="proximamente" data-es="Próximamente." data-en="Coming soon.">Próximamente.</div></section>
+
+      <section id="proyecto-entre-lineas" class="page page-proyecto">
+        <div class="project-meta"><a href="https://festivalhelloworld.mx/" target="_blank" rel="noopener">Festival Hello World</a><span> · Residencia</span></div>
+        <h1 class="page-title">Entre líneas</h1>
+        <div class="entre-textos">
+          <div><span class="idioma-label">ES</span><p>Utilizando grabaciones sonoras de conversaciones íntimas con personas voluntarias, se generaron patrones visuales a partir de las gráficas de frecuencia de estos registros, que después se convirtieron en una pieza textil interactiva. La instalación se activa al detectar la voz del público, integra sus conversaciones en los paneles y activa secciones tejidas con hilos termocrómicos que cambian de color, creando una lectura dinámica del bordado. Así, hilos y palabras se entrelazan y su significado evoluciona con cada interacción.</p></div>
+          <div><span class="idioma-label">EN</span><p>Using sound recordings of intimate conversations with volunteers, visual patterns were generated from the frequency graphs of these recordings and turned into an interactive textile piece. The installation activates when it detects the audience's voice, integrating their conversations into the panels and triggering sections woven with thermochromic threads that change color, creating a dynamic reading of the embroidery. Thus, threads and words intertwine, and their meaning evolves with each interaction.</p></div>
+        </div>
+        <div class="entre-galeria"><img src="entre1.jpg" alt="Entre líneas — registro 1" loading="lazy"><img src="entre2.jpg" alt="Entre líneas — registro 2" loading="lazy"><img src="entre3.jpg" alt="Entre líneas — registro 3" loading="lazy"></div>
+      </section>
+
+      <section id="publicaciones" class="page"><h1 class="page-title" data-es="Publicaciones" data-en="Publications">Publicaciones</h1><p class="proximamente" data-es="Próximamente." data-en="Coming soon.">Próximamente.</p></section>
+
+      <section id="archivo" class="page page-archivo">
+        <div class="archivo-title"><span id="archivo-welcome"></span><span class="archivo-cursor" aria-hidden="true"></span></div>
+        <div id="archivo-tags" class="archivo-tags" aria-live="polite"></div>
+      </section>
+
+      <section id="bio" class="page page-bio">
+        <div class="bio-grid"><div class="bio-izquierda"><img src="cv2.png" alt="CV Isis Vargas" class="bio-cv-imagen"><a href="cv.pdf" class="bio-descarga" download data-es="Descargar currículum" data-en="Download CV">Descargar currículum</a></div><div class="bio-derecha"><h1 class="page-title">Isis Vargas <span class="bio-lugar">(Zacatecas, Mx)</span></h1><p>Artista transdisciplinaria. Maestranda en Tecnología y Estética de las Artes Electrónicas. En su investigación explora la relación entre algoritmos, sociedad y estética a partir del uso de datos, procesos materiales y medios experimentales, entendiendo la tecnología como una forma de mediación con el territorio y sus dinámicas.</p><p>Algunas participaciones son: Microresidencia Tsonami B.A.S.E, 2026; Microbeca “Rhizome”, 2026; Residencia “Wilderness” en Snowapple, CDMX, 2025; artista residente en el Festival Hello World, México, 2023; y 14 Bienal de La Habana, Cuba, 2022.</p></div></div>
+      </section>
+
+      <section id="contacto" class="page page-contacto">
+        <img src="Firma.gif" alt="Firma Isis Vargas" class="firma">
+        <p class="contacto-correo"><a href="mailto:1sis.v4rgas@gmail.com">1sis.v4rgas@gmail.com</a></p>
+        <form id="form-contacto" class="form-contacto"><label for="nombre" data-es="Nombre" data-en="Name">Nombre</label><input type="text" id="nombre" name="nombre" required><label for="correo-remitente" data-es="Tu correo" data-en="Your email">Tu correo</label><input type="email" id="correo-remitente" name="correo" required><label for="mensaje" data-es="Mensaje" data-en="Message">Mensaje</label><textarea id="mensaje" name="mensaje" rows="6" required></textarea><button type="submit" data-es="Enviar" data-en="Send">Enviar</button></form>
+      </section>
+    </main>
+  </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
