@@ -40,7 +40,9 @@
 .form-estado{min-height:18px;margin:8px 0 0;font-size:12px;color:var(--magenta)}
 
 /* Ajustes finales del grafo */
-.grafo-wrap{background:#fff}
+.page-inicio,.inicio-layout,.grafo-wrap,#grafo-conceptos,#grafo-conceptos svg{background:#fff!important}
+.nodes{isolation:isolate}
+.node-text{paint-order:stroke fill;stroke:#fff;stroke-width:2.5px;stroke-linejoin:round}
 @media(max-width:920px){
   .node-text{font-size:9px}
   .node-symbol{filter:drop-shadow(0 0 2px rgba(255,47,146,.75))}
