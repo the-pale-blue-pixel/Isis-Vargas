@@ -70,3 +70,26 @@
   .grafo-wrap{height:calc(100svh - (var(--topbar-h) * 2) - 38px - (var(--margen) * 2))}
   .publicaciones-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:26px 14px}
 }
+
+/* Bio sin imagen */
+.bio-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+  max-width: 760px;
+  margin: clamp(18px, 5vh, 70px) auto 0;
+}
+
+.bio-derecha {
+  order: 1;
+}
+
+.bio-izquierda {
+  order: 2;
+  margin-top: 22px;
+}
+
+.bio-cv-imagen {
+  display: none !important;
+}
