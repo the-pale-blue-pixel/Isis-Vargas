@@ -120,7 +120,7 @@ button, input, textarea { font: inherit; }
 .question-help { margin: -10px 0 20px 46px; color: var(--muted); font-size: 12px; }
 #explorar-count { color: var(--pink); }
 
-input[type="text"], textarea {
+input[type="text"], input[type="email"], textarea {
   width: calc(100% - 46px);
   margin-left: 46px;
   padding: 10px 2px;
@@ -134,7 +134,7 @@ input[type="text"], textarea {
 
 textarea { min-height: 92px; resize: vertical; }
 textarea::placeholder, input::placeholder { color: #85827d; opacity: 1; }
-input[type="text"]:focus, textarea:focus { border-bottom-color: var(--pink); box-shadow: 0 1px 0 var(--pink); }
+input[type="text"]:focus, input[type="email"]:focus, textarea:focus { border-bottom-color: var(--pink); box-shadow: 0 1px 0 var(--pink); }
 
 .options-grid {
   display: flex;
@@ -232,8 +232,8 @@ input[type="text"]:focus, textarea:focus { border-bottom-color: var(--pink); box
   .form-purpose { padding: 22px 20px; border-radius: 24px; }
   .question { padding: 10px 4px 18px; }
   .question > label, .question legend { grid-template-columns: 24px minmax(0, 1fr); gap: 10px; }
-  .question-help, .options-grid, .options-list, input[type="text"], textarea, .field-error { margin-left: 34px; }
-  input[type="text"], textarea { width: calc(100% - 34px); }
+  .question-help, .options-grid, .options-list, input[type="text"], input[type="email"], textarea, .field-error { margin-left: 34px; }
+  input[type="text"], input[type="email"], textarea { width: calc(100% - 34px); }
   .option-other { width: 100%; flex-wrap: wrap; }
   .form-footer { flex-direction: column; padding: 18px; }
 }
