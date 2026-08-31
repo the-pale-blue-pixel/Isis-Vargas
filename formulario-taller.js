@@ -53,6 +53,12 @@ function validateForm() {
     }
   });
 
+  const email = form.querySelector('input[name="correo"]');
+  if (email.value.trim() && !email.validity.valid) {
+    showQuestionError(email, "Escribe un correo electrónico válido.");
+    valid = false;
+  }
+
   const materials = form.querySelectorAll('input[name="materiales"]:checked');
   if (!materials.length) {
     showQuestionError(form.querySelector('[data-group="materiales"]'), "Selecciona al menos una opción.");
@@ -91,6 +97,8 @@ function collectAnswers() {
   const materials = data.getAll("materiales").filter(value => value !== "Otro");
   if (otherCheck.checked) materials.push(`Otro: ${otherInput.value.trim()}`);
   return {
+    nombre: data.get("nombre").trim(),
+    correo: data.get("correo").trim(),
     practica: data.get("practica").trim(),
     pensando: data.get("pensando").trim(),
     materiales: materials,
