@@ -7,7 +7,7 @@
   <meta name="robots" content="noindex, nofollow, noarchive">
   <meta name="referrer" content="no-referrer">
   <link rel="icon" href="favicon.ico?v=4" sizes="any">
-  <link rel="stylesheet" href="formulario-taller.css?v=20260831-3">
+  <link rel="stylesheet" href="formulario-taller.css?v=20260831-5">
 </head>
 <body>
   <canvas id="fluid-background" aria-hidden="true"></canvas>
@@ -30,19 +30,31 @@
 
     <form id="taller-form" class="taller-form" novalidate>
       <section class="question" data-question="1">
-        <label for="practica"><span class="question-number">01</span><span>¿Desde qué práctica llegas al taller? <b aria-label="obligatoria">*</b></span></label>
-        <input id="practica" name="practica" type="text" autocomplete="off" required>
+        <label for="nombre"><span class="question-number">01</span><span>Nombre <b aria-label="obligatoria">*</b></span></label>
+        <input id="nombre" name="nombre" type="text" autocomplete="name" required>
         <p class="field-error" aria-live="polite"></p>
       </section>
 
       <section class="question" data-question="2">
-        <label for="pensando"><span class="question-number">02</span><span>¿Qué estás haciendo o pensando últimamente? <b aria-label="obligatoria">*</b></span></label>
+        <label for="correo"><span class="question-number">02</span><span>Correo electrónico <b aria-label="obligatoria">*</b></span></label>
+        <input id="correo" name="correo" type="email" autocomplete="email" inputmode="email" required>
+        <p class="field-error" aria-live="polite"></p>
+      </section>
+
+      <section class="question" data-question="3">
+        <label for="practica"><span class="question-number">03</span><span>¿Desde qué práctica llegas al taller? <b aria-label="obligatoria">*</b></span></label>
+        <input id="practica" name="practica" type="text" autocomplete="off" required>
+        <p class="field-error" aria-live="polite"></p>
+      </section>
+
+      <section class="question" data-question="4">
+        <label for="pensando"><span class="question-number">04</span><span>¿Qué estás haciendo o pensando últimamente? <b aria-label="obligatoria">*</b></span></label>
         <textarea id="pensando" name="pensando" rows="6" required placeholder="Puede ser una obra en proceso, una investigación, una obsesión, una pregunta o algo que todavía no sabes cómo convertir en proyecto."></textarea>
         <p class="field-error" aria-live="polite"></p>
       </section>
 
-      <fieldset class="question option-question" data-question="4" data-group="materiales">
-        <legend><span class="question-number">04</span><span>¿Qué materiales, medios o lenguajes aparecen actualmente en tu trabajo? <b aria-label="obligatoria">*</b></span></legend>
+      <fieldset class="question option-question" data-question="5" data-group="materiales">
+        <legend><span class="question-number">05</span><span>¿Qué materiales, medios o lenguajes aparecen actualmente en tu trabajo? <b aria-label="obligatoria">*</b></span></legend>
         <p class="question-help">Puedes elegir varias opciones.</p>
         <div class="options-grid">
           <label class="option"><input type="checkbox" name="materiales" value="Imagen / fotografía / video"><span>Imagen / fotografía / video</span></label>
@@ -67,14 +79,14 @@
         <p class="field-error" aria-live="polite"></p>
       </fieldset>
 
-      <section class="question" data-question="5">
-        <label for="procedimiento"><span class="question-number">05</span><span>¿Hay algún procedimiento que repitas mucho cuando trabajas? <b aria-label="obligatoria">*</b></span></label>
+      <section class="question" data-question="6">
+        <label for="procedimiento"><span class="question-number">06</span><span>¿Hay algún procedimiento que repitas mucho cuando trabajas? <b aria-label="obligatoria">*</b></span></label>
         <textarea id="procedimiento" name="procedimiento" rows="5" required placeholder="Puede ser ordenar, clasificar, copiar, caminar, tejer, acumular, borrar, preguntar, registrar, improvisar, traducir, seguir instrucciones, esperar…"></textarea>
         <p class="field-error" aria-live="polite"></p>
       </section>
 
-      <fieldset class="question option-question" data-question="6" data-group="explorar">
-        <legend><span class="question-number">06</span><span>¿Cuál de estas cosas te gustaría explorar más durante el taller? <b aria-label="obligatoria">*</b></span></legend>
+      <fieldset class="question option-question" data-question="7" data-group="explorar">
+        <legend><span class="question-number">07</span><span>¿Cuál de estas cosas te gustaría explorar más durante el taller? <b aria-label="obligatoria">*</b></span></legend>
         <p class="question-help">Elige entre una y tres opciones. <span id="explorar-count">0/3 seleccionadas</span></p>
         <div class="options-list">
           <label class="option"><input type="checkbox" name="explorar" value="Trabajar con instrucciones y reglas"><span>Trabajar con instrucciones y reglas</span></label>
@@ -94,8 +106,8 @@
         <p class="field-error" aria-live="polite"></p>
       </fieldset>
 
-      <fieldset class="question option-question" data-question="7">
-        <legend><span class="question-number">07</span><span>¿Qué relación tienes actualmente con la tecnología cuando produces? <b aria-label="obligatoria">*</b></span></legend>
+      <fieldset class="question option-question" data-question="8">
+        <legend><span class="question-number">08</span><span>¿Qué relación tienes actualmente con la tecnología cuando produces? <b aria-label="obligatoria">*</b></span></legend>
         <div class="options-list radio-list">
           <label class="option"><input type="radio" name="relacion_tecnologia" value="Es central en mi práctica" required><span>Es central en mi práctica.</span></label>
           <label class="option"><input type="radio" name="relacion_tecnologia" value="La utilizo como herramienta, pero quiero pensarla de otra manera"><span>La utilizo como herramienta, pero quiero pensarla de otra manera.</span></label>
@@ -108,14 +120,14 @@
         <p class="field-error" aria-live="polite"></p>
       </fieldset>
 
-      <section class="question" data-question="8">
-        <label for="herramientas"><span class="question-number">08</span><span>¿Hay alguna herramienta, programa, máquina o técnica que ya uses y que te gustaría poner en juego durante el taller? <b aria-label="obligatoria">*</b></span></label>
+      <section class="question" data-question="9">
+        <label for="herramientas"><span class="question-number">09</span><span>¿Hay alguna herramienta, programa, máquina o técnica que ya uses y que te gustaría poner en juego durante el taller? <b aria-label="obligatoria">*</b></span></label>
         <textarea id="herramientas" name="herramientas" rows="4" required></textarea>
         <p class="field-error" aria-live="polite"></p>
       </section>
 
-      <section class="question" data-question="9">
-        <label for="referente"><span class="question-number">09</span><span>Cuéntame de algo que hayas visto, leído, escuchado o experimentado recientemente y que se te haya quedado dando vueltas. <b aria-label="obligatoria">*</b></span></label>
+      <section class="question" data-question="10">
+        <label for="referente"><span class="question-number">10</span><span>Cuéntame de algo que hayas visto, leído, escuchado o experimentado recientemente y que se te haya quedado dando vueltas. <b aria-label="obligatoria">*</b></span></label>
         <textarea id="referente" name="referente" rows="5" required></textarea>
         <p class="field-error" aria-live="polite"></p>
       </section>
@@ -159,6 +171,6 @@
   </main>
 
   <footer class="form-footer"><span>Algoritmos, máquinas y rituales</span><span>Isis Vargas · 2026</span></footer>
-  <script src="formulario-taller.js?v=20260831-4"></script>
+  <script src="formulario-taller.js?v=20260831-5"></script>
 </body>
 </html>
