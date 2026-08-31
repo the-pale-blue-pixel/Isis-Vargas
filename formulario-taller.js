@@ -5,7 +5,6 @@ const form = document.getElementById("taller-form");
 const submitButton = document.getElementById("submit-button");
 const statusMessage = document.getElementById("form-status");
 const errorSummary = document.getElementById("form-error-summary");
-const successPanel = document.getElementById("form-success");
 const fluidCanvas = document.getElementById("fluid-background");
 const otherCheck = document.getElementById("materiales-otro-check");
 const otherInput = document.getElementById("materiales-otro");
@@ -148,10 +147,7 @@ form.addEventListener("submit", async event => {
     form.reset();
     updateOtherField();
     updateExploreLimit();
-    form.hidden = true;
-    successPanel.hidden = false;
-    successPanel.focus();
-    window.scrollTo({ top: successPanel.offsetTop - 80, behavior: "smooth" });
+    window.location.assign("respuesta-registrada.html");
   } catch (error) {
     statusMessage.textContent = "No fue posible guardar la respuesta. Revisa tu conexión e inténtalo nuevamente.";
     submitButton.disabled = false;
