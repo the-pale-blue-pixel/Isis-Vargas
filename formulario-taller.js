@@ -185,14 +185,15 @@ function startFluidBackground() {
     const x = point.x + wobbleX;
     const y = point.y + wobbleY;
     const radius = point.radius * (.92 + Math.sin(time * .012 + point.phase) * .1);
-    const colors = index % 3 === 0
-      ? ["rgba(88, 137, 229, .34)", "rgba(117, 156, 222, 0)"]
-      : index % 3 === 1
-        ? ["rgba(255, 137, 199, .2)", "rgba(255, 170, 211, 0)"]
-        : ["rgba(208, 229, 255, .27)", "rgba(232, 241, 255, 0)"];
+    const colorShift = (Math.sin(time * .006 + point.phase * .22) + 1) / 2;
+    const red = Math.round(88 + (239 - 88) * colorShift);
+    const green = Math.round(137 + (120 - 137) * colorShift);
+    const blue = Math.round(229 + (185 - 229) * colorShift);
+    const alpha = .13 + (1 - index / trail.length) * .09;
     const gradient = context.createRadialGradient(x, y, 0, x, y, radius);
-    gradient.addColorStop(0, colors[0]);
-    gradient.addColorStop(1, colors[1]);
+    gradient.addColorStop(0, `rgba(${red}, ${green}, ${blue}, ${alpha})`);
+    gradient.addColorStop(.56, `rgba(${red}, ${green}, ${blue}, ${alpha * .48})`);
+    gradient.addColorStop(1, `rgba(${red}, ${green}, ${blue}, 0)`);
     context.fillStyle = gradient;
     context.beginPath();
     context.arc(x, y, radius, 0, Math.PI * 2);
@@ -211,9 +212,8 @@ function startFluidBackground() {
     }
     if (pointer.energy > .01) {
       context.globalAlpha = pointer.energy;
-      context.globalCompositeOperation = "screen";
-      trail.forEach(drawBlob);
       context.globalCompositeOperation = "source-over";
+      trail.forEach(drawBlob);
       context.globalAlpha = 1;
     }
     requestAnimationFrame(animate);
