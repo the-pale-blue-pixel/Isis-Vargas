@@ -156,12 +156,14 @@ updateExploreLimit();
 function startFluidBackground() {
   if (!fluidCanvas || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   const context = fluidCanvas.getContext("2d");
-  const trail = Array.from({ length: 12 }, (_, index) => ({
+  const trail = Array.from({ length: 18 }, (_, index) => ({
     x: innerWidth * .5,
     y: innerHeight * .5,
-    radius: 145 - index * 5
+    radius: Math.max(48, 132 - index * 4.2),
+    phase: index * .62
   }));
-  const pointer = { x: innerWidth * .5, y: innerHeight * .5, active: false };
+  const pointer = { x: innerWidth * .5, y: innerHeight * .5, active: false, energy: 0 };
+  let time = 0;
 
   function resizeCanvas() {
     const ratio = Math.min(devicePixelRatio || 1, 1.5);
@@ -174,41 +176,52 @@ function startFluidBackground() {
     pointer.x = event.clientX;
     pointer.y = event.clientY;
     pointer.active = true;
+    pointer.energy = 1;
   }
 
   function drawBlob(point, index) {
+    const wobbleX = Math.sin(time * .018 + point.phase) * (9 + index * .55);
+    const wobbleY = Math.cos(time * .014 + point.phase) * (7 + index * .4);
+    const x = point.x + wobbleX;
+    const y = point.y + wobbleY;
+    const radius = point.radius * (.92 + Math.sin(time * .012 + point.phase) * .1);
     const colors = index % 3 === 0
-      ? ["rgba(95, 143, 227, .3)", "rgba(117, 156, 222, 0)"]
+      ? ["rgba(88, 137, 229, .34)", "rgba(117, 156, 222, 0)"]
       : index % 3 === 1
-        ? ["rgba(255, 151, 203, .22)", "rgba(255, 170, 211, 0)"]
-        : ["rgba(232, 241, 255, .2)", "rgba(232, 241, 255, 0)"];
-    const gradient = context.createRadialGradient(point.x, point.y, 0, point.x, point.y, point.radius);
+        ? ["rgba(255, 137, 199, .2)", "rgba(255, 170, 211, 0)"]
+        : ["rgba(208, 229, 255, .27)", "rgba(232, 241, 255, 0)"];
+    const gradient = context.createRadialGradient(x, y, 0, x, y, radius);
     gradient.addColorStop(0, colors[0]);
     gradient.addColorStop(1, colors[1]);
     context.fillStyle = gradient;
     context.beginPath();
-    context.arc(point.x, point.y, point.radius, 0, Math.PI * 2);
+    context.arc(x, y, radius, 0, Math.PI * 2);
     context.fill();
   }
 
   function animate() {
+    time += 1;
     context.clearRect(0, 0, innerWidth, innerHeight);
-    trail[0].x += (pointer.x - trail[0].x) * .12;
-    trail[0].y += (pointer.y - trail[0].y) * .12;
+    pointer.energy += ((pointer.active ? 1 : 0) - pointer.energy) * .055;
+    trail[0].x += (pointer.x - trail[0].x) * .16;
+    trail[0].y += (pointer.y - trail[0].y) * .16;
     for (let index = 1; index < trail.length; index += 1) {
-      trail[index].x += (trail[index - 1].x - trail[index].x) * .18;
-      trail[index].y += (trail[index - 1].y - trail[index].y) * .18;
+      trail[index].x += (trail[index - 1].x - trail[index].x) * .13;
+      trail[index].y += (trail[index - 1].y - trail[index].y) * .13;
     }
-    if (pointer.active) {
+    if (pointer.energy > .01) {
+      context.globalAlpha = pointer.energy;
       context.globalCompositeOperation = "screen";
       trail.forEach(drawBlob);
       context.globalCompositeOperation = "source-over";
+      context.globalAlpha = 1;
     }
     requestAnimationFrame(animate);
   }
 
   addEventListener("resize", resizeCanvas);
   addEventListener("pointermove", movePointer, { passive: true });
+  addEventListener("pointerleave", () => { pointer.active = false; });
   resizeCanvas();
   animate();
 }
