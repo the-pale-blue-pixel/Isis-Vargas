@@ -1,5 +1,5 @@
 // Pega aquí la URL terminada en /exec que obtendrás al publicar el Apps Script.
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzIWKzqnjhCHdgBec_fRsKaT_Spkqew5B0hqJY-6pmp3bTkMvP4K9zttNgpHWuOMxY/exec";
+const GOOGLE_SCRIPT_URL = const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz_Q8uYWcFbG6Z7rIb3S3G1plBpUZxNAB-QLSe8_aHRLt0w7NBflcneyQZJMPQ1c2Msvg/exec";
 
 const form = document.getElementById("taller-form");
 const submitButton = document.getElementById("submit-button");
