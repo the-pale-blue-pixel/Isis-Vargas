@@ -6,17 +6,8 @@ const submitButton = document.getElementById("submit-button");
 const statusMessage = document.getElementById("form-status");
 const errorSummary = document.getElementById("form-error-summary");
 const fluidCanvas = document.getElementById("fluid-background");
-const otherCheck = document.getElementById("materiales-otro-check");
-const otherInput = document.getElementById("materiales-otro");
 const exploreChecks = [...form.querySelectorAll('input[name="explorar"]')];
 const exploreCount = document.getElementById("explorar-count");
-
-function updateOtherField() {
-  otherInput.disabled = !otherCheck.checked;
-  otherInput.required = otherCheck.checked;
-  if (!otherCheck.checked) otherInput.value = "";
-  if (otherCheck.checked) otherInput.focus();
-}
 
 function updateExploreLimit() {
   const selected = exploreChecks.filter(input => input.checked).length;
@@ -58,27 +49,12 @@ function validateForm() {
     valid = false;
   }
 
-  const materials = form.querySelectorAll('input[name="materiales"]:checked');
-  if (!materials.length) {
-    showQuestionError(form.querySelector('[data-group="materiales"]'), "Selecciona al menos una opción.");
-    valid = false;
-  } else if (otherCheck.checked && !otherInput.value.trim()) {
-    showQuestionError(otherInput, "Especifica cuál es la otra opción.");
-    valid = false;
-  }
-
   const selectedExplore = exploreChecks.filter(input => input.checked);
   if (!selectedExplore.length) {
     showQuestionError(form.querySelector('[data-group="explorar"]'), "Selecciona al menos una opción.");
     valid = false;
   } else if (selectedExplore.length > 3) {
     showQuestionError(selectedExplore[0], "Puedes elegir como máximo tres opciones.");
-    valid = false;
-  }
-
-  const technology = form.querySelector('input[name="relacion_tecnologia"]:checked');
-  if (!technology) {
-    showQuestionError(form.querySelector('input[name="relacion_tecnologia"]'), "Selecciona una opción.");
     valid = false;
   }
 
@@ -93,29 +69,22 @@ function validateForm() {
 
 function collectAnswers() {
   const data = new FormData(form);
-  const materials = data.getAll("materiales").filter(value => value !== "Otro");
-  if (otherCheck.checked) materials.push(`Otro: ${otherInput.value.trim()}`);
+  const proyectoTecnologia = data.get("proyecto_tecnologia").trim();
   return {
     nombre: data.get("nombre").trim(),
     correo: data.get("correo").trim(),
     practica: data.get("practica").trim(),
-    pensando: data.get("pensando").trim(),
-    materiales: materials,
-    procedimiento: data.get("procedimiento").trim(),
     explorar: data.getAll("explorar"),
-    relacion_tecnologia: data.get("relacion_tecnologia"),
-    herramientas: data.get("herramientas").trim(),
-    referente: data.get("referente").trim(),
-    participacion: data.get("participacion").trim(),
+    proyecto_tecnologia: proyectoTecnologia,
+    // Compatibilidad con la versión actual del Apps Script.
+    herramientas: proyectoTecnologia,
     maquina: data.get("maquina").trim(),
-    internet: data.get("internet").trim(),
     ritual: data.get("ritual").trim(),
     pagina: window.location.href,
     zona_horaria: Intl.DateTimeFormat().resolvedOptions().timeZone
   };
 }
 
-otherCheck.addEventListener("change", updateOtherField);
 exploreChecks.forEach(input => input.addEventListener("change", updateExploreLimit));
 
 form.addEventListener("input", event => {
@@ -145,7 +114,6 @@ form.addEventListener("submit", async event => {
       body: JSON.stringify(collectAnswers())
     });
     form.reset();
-    updateOtherField();
     updateExploreLimit();
     window.location.assign("respuesta-registrada.html");
   } catch (error) {
@@ -154,7 +122,6 @@ form.addEventListener("submit", async event => {
   }
 });
 
-updateOtherField();
 updateExploreLimit();
 
 function startFluidBackground() {
