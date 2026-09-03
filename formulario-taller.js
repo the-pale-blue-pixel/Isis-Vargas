@@ -78,8 +78,6 @@ function collectAnswers() {
     proyecto_tecnologia: proyectoTecnologia,
     // Compatibilidad con la versión actual del Apps Script.
     herramientas: proyectoTecnologia,
-    maquina: data.get("maquina").trim(),
-    ritual: data.get("ritual").trim(),
     pagina: window.location.href,
     zona_horaria: Intl.DateTimeFormat().resolvedOptions().timeZone
   };
