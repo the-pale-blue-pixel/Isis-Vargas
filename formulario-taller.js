@@ -70,9 +70,13 @@ function validateForm() {
 function collectAnswers() {
   const data = new FormData(form);
   const proyectoTecnologia = data.get("proyecto_tecnologia").trim();
+  const telefono = data.get("telefono").trim();
   return {
     nombre: data.get("nombre").trim(),
     correo: data.get("correo").trim(),
+    telefono,
+    // Usa una columna ya existente del Apps Script; no requiere modificarlo.
+    participacion: `Teléfono: ${telefono}`,
     practica: data.get("practica").trim(),
     explorar: data.getAll("explorar"),
     proyecto_tecnologia: proyectoTecnologia,
