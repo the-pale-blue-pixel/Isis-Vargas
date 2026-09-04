@@ -139,13 +139,14 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="tel"]:focus, te
 
 .contact-fields {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 22px;
   margin-left: 46px;
 }
 
+.contact-question .question-heading { margin-bottom: 16px; }
+.contact-note { display: block; margin-top: 3px; color: var(--muted); font-size: 11px; font-weight: 400; }
 .contact-field { min-width: 0; color: var(--muted); font-size: 12px; font-weight: 400; }
-.contact-field small { font-size: inherit; font-weight: inherit; }
 .contact-field input { width: 100%; margin: 4px 0 0; color: var(--ink); font-size: 15px; }
 
 .options-grid {
