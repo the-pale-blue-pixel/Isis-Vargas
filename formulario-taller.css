@@ -100,6 +100,7 @@ button, input, textarea { font: inherit; }
 .question.has-error { border: 0; }
 
 .question > label,
+.question-heading,
 .question legend {
   width: 100%;
   display: grid;
@@ -120,7 +121,7 @@ button, input, textarea { font: inherit; }
 .question-help { margin: -10px 0 20px 46px; color: var(--muted); font-size: 12px; }
 #explorar-count { color: var(--pink); }
 
-input[type="text"], input[type="email"], textarea {
+input[type="text"], input[type="email"], input[type="tel"], textarea {
   width: calc(100% - 46px);
   margin-left: 46px;
   padding: 10px 2px;
@@ -134,7 +135,18 @@ input[type="text"], input[type="email"], textarea {
 
 textarea { min-height: 92px; resize: vertical; }
 textarea::placeholder, input::placeholder { color: #85827d; opacity: 1; }
-input[type="text"]:focus, input[type="email"]:focus, textarea:focus { border-bottom-color: var(--pink); box-shadow: 0 1px 0 var(--pink); }
+input[type="text"]:focus, input[type="email"]:focus, input[type="tel"]:focus, textarea:focus { border-bottom-color: var(--pink); box-shadow: 0 1px 0 var(--pink); }
+
+.contact-fields {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
+  gap: 22px;
+  margin-left: 46px;
+}
+
+.contact-field { min-width: 0; color: var(--muted); font-size: 12px; font-weight: 400; }
+.contact-field small { font-size: inherit; font-weight: inherit; }
+.contact-field input { width: 100%; margin: 4px 0 0; color: var(--ink); font-size: 15px; }
 
 .options-grid {
   display: flex;
@@ -231,11 +243,17 @@ input[type="text"]:focus, input[type="email"]:focus, textarea:focus { border-bot
   .form-intro-copy { columns: 1; }
   .form-purpose { padding: 22px 20px; border-radius: 24px; }
   .question { padding: 10px 4px 18px; }
-  .question > label, .question legend { grid-template-columns: 24px minmax(0, 1fr); gap: 10px; }
-  .question-help, .options-grid, .options-list, input[type="text"], input[type="email"], textarea, .field-error { margin-left: 34px; }
-  input[type="text"], input[type="email"], textarea { width: calc(100% - 34px); }
+  .question > label, .question-heading, .question legend { grid-template-columns: 24px minmax(0, 1fr); gap: 10px; }
+  .question-help, .options-grid, .options-list, input[type="text"], input[type="email"], input[type="tel"], textarea, .field-error { margin-left: 34px; }
+  input[type="text"], input[type="email"], input[type="tel"], textarea { width: calc(100% - 34px); }
+  .contact-fields { margin-left: 34px; }
+  .contact-field input { width: 100%; margin-left: 0; }
   .option-other { width: 100%; flex-wrap: wrap; }
   .form-footer { flex-direction: column; padding: 18px; }
+}
+
+@media (max-width: 520px) {
+  .contact-fields { grid-template-columns: 1fr; }
 }
 
 @media (prefers-reduced-motion: reduce) {
