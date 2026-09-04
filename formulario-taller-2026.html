@@ -7,7 +7,7 @@
   <meta name="robots" content="noindex, nofollow, noarchive">
   <meta name="referrer" content="no-referrer">
   <link rel="icon" href="favicon.ico?v=4" sizes="any">
-  <link rel="stylesheet" href="formulario-taller.css?v=20260903-1">
+  <link rel="stylesheet" href="formulario-taller.css?v=20260904-1">
 </head>
 <body>
   <canvas id="fluid-background" aria-hidden="true"></canvas>
@@ -35,9 +35,18 @@
         <p class="field-error" aria-live="polite"></p>
       </section>
 
-      <section class="question" data-question="2">
-        <label for="correo"><span class="question-number">02</span><span>Correo electrónico <b aria-label="obligatoria">*</b></span></label>
-        <input id="correo" name="correo" type="email" autocomplete="email" inputmode="email" required>
+      <section class="question contact-question" data-question="2">
+        <div class="question-heading"><span class="question-number">02</span><span>Correo electrónico y teléfono <b aria-label="obligatoria">*</b></span></div>
+        <div class="contact-fields">
+          <label class="contact-field" for="correo">
+            <span>Correo electrónico</span>
+            <input id="correo" name="correo" type="email" autocomplete="email" inputmode="email" required>
+          </label>
+          <label class="contact-field" for="telefono">
+            <span>Número de teléfono <small>(servirá para comunicaciones con el equipo de CEART)</small></span>
+            <input id="telefono" name="telefono" type="tel" autocomplete="tel" inputmode="tel" required>
+          </label>
+        </div>
         <p class="field-error" aria-live="polite"></p>
       </section>
 
@@ -84,6 +93,6 @@
   </main>
 
   <footer class="form-footer"><span>Algoritmos, máquinas y rituales</span><span>Isis Vargas · 2026</span></footer>
-  <script src="formulario-taller.js?v=20260903-2"></script>
+  <script src="formulario-taller.js?v=20260904-1"></script>
 </body>
 </html>
